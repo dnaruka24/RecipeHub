@@ -7,7 +7,7 @@ const Navbar = () => {
         Home
       </NavLink>
       <NavLink className={(e) => e.isActive ? "text-rose-400" : ''} to="/recipes">
-        Recipes
+        Recipe
       </NavLink>
       <NavLink className={(e) => e.isActive ? "text-rose-400" : ''} to="/about">
         About
