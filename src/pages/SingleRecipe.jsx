@@ -20,6 +20,10 @@ const SingleRecipe = () => {
     },
   });
 
+   const [favorite, setfavorite] = useState(
+    JSON.parse(localStorage.getItem("fav")) || []
+  );
+
   let UpdatetHandler = (recipe) => {
     const index = data.findIndex((recipe) => params.id == recipe.id);
     const copydata = [...data];
@@ -29,23 +33,26 @@ const SingleRecipe = () => {
     toast.success("Recipe updated");
   };
 
-  const DeleteHandler = () => {
+  const DeleteHandler = (e) => {
+    e.preventDefault();
     const filterdata = data.filter((r) => r.id != params.id);
     setdata(filterdata);
     localStorage.setItem("recipes", JSON.stringify(filterdata));
+    const filteredFav = favorite.filter((f) => f.id !== params.id);
+      localStorage.setItem("fav", JSON.stringify(filteredFav));
     toast.success("Recipe Deleted");
     navigate("/recipes");
   };
 
-  const [favorite, setfavorite] = useState(
-    JSON.parse(localStorage.getItem("fav")) || []
-  );
+ 
 
   const FavHandler = () => {
     let copyfav = [...favorite];
     copyfav.push(recipe);
     setfavorite(copyfav)
     localStorage.setItem("fav", JSON.stringify(copyfav));
+        toast.success("Recipe added to favorites");
+
   };
   const UnFavHandler = () => {
     const filterfav = favorite.filter((f) => f.id != recipe?.id);
@@ -152,12 +159,12 @@ const SingleRecipe = () => {
           </option>
         </select>
 
-        <button className="block mt-5 bg-blue-900 px-4 py-2 rounded">
+        <button className="block mt-5 bg-blue-600 hover:bg-blue-900 active:bg-blue-700 px-4 py-2 rounded">
           Update Recipe
         </button>
         <button
           onClick={DeleteHandler}
-          className="block mt-5 bg-red-900 px-4 py-2 rounded"
+          className="block mt-5 bg-red-700 hover:bg-red-900 active:bg-red-800 px-4 py-2 rounded"
         >
           Delete Recipe
         </button>

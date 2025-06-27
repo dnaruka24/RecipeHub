@@ -1,7 +1,7 @@
-import RecipeCard from './../components/RecipeCard';
+import RecipeCard from "./../components/RecipeCard";
 
 const Fav = () => {
-   const favorite = JSON.parse(localStorage.getItem('fav') || [])
+  const favorite = JSON.parse(localStorage.getItem("fav") || "[]");
 
   const renderrecipes = favorite.map((recipe) => (
     <RecipeCard key={recipe.id} recipe={recipe} />
@@ -11,6 +11,6 @@ const Fav = () => {
       {favorite.length > 0 ? renderrecipes : "No recipes found!"}
     </div>
   );
-}
+};
 
-export default Fav
+export default Fav;
